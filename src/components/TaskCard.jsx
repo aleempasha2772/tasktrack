@@ -16,6 +16,7 @@ const TaskCard = () => {
                 <img  className='delete_icon' src={deleteIcon} alt="" />
             </div>
         </div>
+        {/* <Tag/> */}
     </article>
   )
 }

@@ -9,6 +9,11 @@ const TaskForm = () => {
     status: "todo",
     tags: []
   })
+
+  const checkTag = (tag) => {
+    return taskData.tags.some(item=> item===tag)
+  }
+
   const handleChange = e => {
     const {name,value} = e.target;
     setTaskData(prev => {
@@ -50,10 +55,14 @@ const TaskForm = () => {
                 onChange={(e) => handleChange(e)}></input>
             <div className='task-form-button-line'>
                 <div>
-                    <Tag selectTag = {selectTag} tagName = 'Critical' />
-                    <Tag selectTag = {selectTag} tagName = 'High'/>
-                    <Tag selectTag = {selectTag} tagName = 'Medium'/>
-                    <Tag selectTag = {selectTag} tagName = 'Low' />
+                    <Tag
+                        selectTag = {selectTag}
+                        selected = {checkTag("CRITICAL")}
+                        tagName = 'CRITICAL'
+                    />
+                    <Tag selected = {checkTag("HIGH")} selectTag = {selectTag} tagName = 'HIGH'/>
+                    <Tag selected = {checkTag("MEDIUM")} selectTag = {selectTag} tagName = 'MEDIUM'/>
+                    <Tag selected = {checkTag("LOW")} selectTag = {selectTag} tagName = 'LOW' />
 
                 </div>
                 
