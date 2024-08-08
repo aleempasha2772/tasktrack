@@ -5,6 +5,11 @@ const TaskForm = () => {
   const [task,setTask] = useState("")
   const [taskDescription,setTaskDescription] = useState("")
   const [status,setStatus] = useState("todo")
+  const [taskData,setTaskData] = useState({
+    task: "",
+    taskdescription: "",
+    status: "todo"
+  })
   const handleTaskChange = e => {
     setTask(e.target.value)
   }
@@ -14,21 +19,33 @@ const TaskForm = () => {
   const handleStatusChange = e => {
     setStatus(e.target.value)
   }
-  console.log(task,status,taskDescription)
+  const handleChange = e => {
+    const {name,value} = e.target;
+    setTaskData(prev => {
+        return {...prev, [name] : value}
+    })
+  }
+  const handleSubmit =(e)=>{
+    e.preventDefault()
+    console.log(taskData)
+  }
+  
   return (
    <header className='app-header'>
-        <form>
+        <form onSubmit={handleSubmit}>
             <input 
+                name='task'
                 className='task-input' 
                 type='text' 
                 placeholder='Enter you Task Title'
-                onChange={(e) => handleTaskChange(e)}    
+                onChange={(e) => handleChange(e)}    
             />
             <input
+                name='taskdescription'
                 className='task-description'
                 type='text' 
                 placeholder='Enter you Task Description' 
-                onChange={(e) => handleTaskDescriptionChange(e)}></input>
+                onChange={(e) => handleChange(e)}></input>
             <div className='task-form-button-line'>
                 <div>
                     <Tag tagName = 'Critical' />
@@ -39,7 +56,11 @@ const TaskForm = () => {
                 </div>
                 
                 <div>
-                    <select className="task_status" onChange={handleStatusChange}>
+                    <select
+                        name='status'
+                        className="task_status" 
+                        onChange={handleChange}
+                    >
                         <option value="todo">To do</option>
                         <option value="doing">Doing</option>
                         <option value="done">Done</option>
