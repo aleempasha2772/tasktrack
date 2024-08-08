@@ -2,28 +2,30 @@ import React,{useState} from 'react'
 import './TaskForm.css'
 import Tag from './Tag'
 const TaskForm = () => {
-  const [task,setTask] = useState("")
-  const [taskDescription,setTaskDescription] = useState("")
-  const [status,setStatus] = useState("todo")
+  
   const [taskData,setTaskData] = useState({
     task: "",
     taskdescription: "",
-    status: "todo"
+    status: "todo",
+    tags: []
   })
-  const handleTaskChange = e => {
-    setTask(e.target.value)
-  }
-  const handleTaskDescriptionChange = e => {
-    setTaskDescription(e.target.value)
-  }
-  const handleStatusChange = e => {
-    setStatus(e.target.value)
-  }
   const handleChange = e => {
     const {name,value} = e.target;
     setTaskData(prev => {
         return {...prev, [name] : value}
     })
+  }
+  const selectTag =(tag) =>{
+    if(taskData.tags.some(item => item === tag)){
+        const filterTags = taskData.tags.filter(item =>item!== tag)
+        setTaskData(prev => {
+            return {...prev,tags:filterTags}
+        })
+    }else{
+        setTaskData(prev =>{
+            return {...prev,tags:[...prev.tags, tag]}
+        })
+    }
   }
   const handleSubmit =(e)=>{
     e.preventDefault()
@@ -48,10 +50,10 @@ const TaskForm = () => {
                 onChange={(e) => handleChange(e)}></input>
             <div className='task-form-button-line'>
                 <div>
-                    <Tag tagName = 'Critical' />
-                    <Tag tagName = 'High'/>
-                    <Tag tagName = 'Medium'/>
-                    <Tag tagName = 'Low' />
+                    <Tag selectTag = {selectTag} tagName = 'Critical' />
+                    <Tag selectTag = {selectTag} tagName = 'High'/>
+                    <Tag selectTag = {selectTag} tagName = 'Medium'/>
+                    <Tag selectTag = {selectTag} tagName = 'Low' />
 
                 </div>
                 

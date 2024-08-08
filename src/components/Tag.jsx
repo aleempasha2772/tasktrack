@@ -1,9 +1,11 @@
 import React from 'react'
 import './TaskForm.css'
-const Tag = ({tagName}) => {
+const Tag = ({tagName,selectTag}) => {
   
   return (
-    <button className='tag'>{tagName}</button>
+    <button type='button' className='tag' onClick={()=> selectTag(tagName)}>
+      {tagName}
+    </button>
   )
 }
 
